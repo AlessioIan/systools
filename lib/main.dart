@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-// Importa le pagine
 import 'cicli.dart';
 import 'lista_dei_comandi.dart';
 import 'codici_pezzi.dart';
 import 'convertire_risultati.dart';
-import 'diluizioni.dart';  // Aggiunto import
+import 'diluizioni.dart';
+import 'calcolo_risultati.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,9 +36,9 @@ class HomePage extends StatelessWidget {
     final Map<String, Widget Function(BuildContext)> pageRoutes = {
       'Cicli': (context) => const CicliPage(),
       'Convertire risultati': (context) => const ConvertireRisultatiPage(),
-      'Diluizioni': (context) => const DiluizioniPage(),  // Modificata questa riga
+      'Diluizioni': (context) => const DiluizioniPage(),
       'Linearità e accuratezza': (context) => const CicliPage(),
-      'Calcolo risultati': (context) => const CicliPage(),
+      'Calcolo risultati': (context) => const CalcoloRisultatiPage(),
       'Lista dei comandi': (context) => const ListaDeiComandi(),
       'Codici pezzi': (context) => const CodiciPezziPage(),
     };
