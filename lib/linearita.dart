@@ -298,25 +298,84 @@ class ScatterPlotPainter extends CustomPainter {
     minY -= yMargin;
     maxY += yMargin;
 
+    // Margini per il grafico
+    const double leftMargin = 60.0;
+    const double bottomMargin = 40.0;
+    const double topMargin = 20.0;
+    const double rightMargin = 20.0;
+
     // Funzioni per convertire le coordinate
-    double scaleX(double x) => (x - minX) / (maxX - minX) * size.width;
-    double scaleY(double y) => size.height - (y - minY) / (maxY - minY) * size.height;
+    double scaleX(double x) => (x - minX) / (maxX - minX) * (size.width - leftMargin - rightMargin) + leftMargin;
+    double scaleY(double y) => size.height - ((y - minY) / (maxY - minY) * (size.height - bottomMargin - topMargin) + bottomMargin);
+
+    // Stile per il testo
+    const textStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 10,
+    );
+    final textPainter = TextPainter(
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    );
 
     // Disegna gli assi
     final axisPaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 1.0;
 
+    // Asse X
     canvas.drawLine(
-      Offset(0, size.height),
-      Offset(size.width, size.height),
+      Offset(leftMargin, size.height - bottomMargin),
+      Offset(size.width - rightMargin, size.height - bottomMargin),
       axisPaint,
     );
+
+    // Asse Y
     canvas.drawLine(
-      const Offset(0, 0),
-      Offset(0, size.height),
+      Offset(leftMargin, topMargin),
+      Offset(leftMargin, size.height - bottomMargin),
       axisPaint,
     );
+
+    // Disegna i valori sull'asse X
+    for (int i = 0; i <= 5; i++) {
+      double value = minX + (maxX - minX) * i / 5;
+      double x = scaleX(value);
+      canvas.drawLine(
+        Offset(x, size.height - bottomMargin),
+        Offset(x, size.height - bottomMargin + 5),
+        axisPaint,
+      );
+      textPainter.text = TextSpan(
+        text: value.toStringAsFixed(2),
+        style: textStyle,
+      );
+      textPainter.layout();
+      textPainter.paint(
+        canvas,
+        Offset(x - textPainter.width / 2, size.height - bottomMargin + 8),
+      );
+    }
+
+    // Disegna i valori sull'asse Y
+    for (int i = 0; i <= 5; i++) {
+      double value = minY + (maxY - minY) * i / 5;
+      double y = scaleY(value);
+      canvas.drawLine(
+        Offset(leftMargin - 5, y),
+        Offset(leftMargin, y),
+        axisPaint,
+      );
+      textPainter.text = TextSpan(
+        text: value.toStringAsFixed(2),
+        style: textStyle,
+      );
+      textPainter.layout();
+      textPainter.paint(
+        canvas,
+        Offset(leftMargin - textPainter.width - 8, y - textPainter.height / 2),
+      );
+    }
 
     // Disegna i punti
     paint.color = Colors.blue;
