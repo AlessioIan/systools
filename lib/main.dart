@@ -5,6 +5,7 @@ import 'codici_pezzi.dart';
 import 'convertire_risultati.dart';
 import 'diluizioni.dart';
 import 'calcolo_risultati.dart';
+import 'linearita.dart';  // Aggiungiamo l'import della nuova pagina
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
       'Cicli': (context) => const CicliPage(),
       'Convertire risultati': (context) => const ConvertireRisultatiPage(),
       'Diluizioni': (context) => const DiluizioniPage(),
-      'Linearità e accuratezza': (context) => const CicliPage(),
+      'Linearità e accuratezza': (context) => const LinearitaPage(), // Modifichiamo questa riga
       'Calcolo risultati': (context) => const CalcoloRisultatiPage(),
       'Lista dei comandi': (context) => const ListaDeiComandi(),
       'Codici pezzi': (context) => const CodiciPezziPage(),
