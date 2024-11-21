@@ -155,7 +155,7 @@ class _EsportaExcelPageState extends State<EsportaExcelPage> {
           });
 
           // Aggiungi un delay tra i download per evitare problemi con il browser
-          await Future.delayed(const Duration(milliseconds: 5));
+          await Future.delayed(const Duration(milliseconds: 50));
         } catch (e) {
           print('Errore nel download del file ${processedFile.fileName}: $e');
           // Continua con il prossimo file anche se questo fallisce
